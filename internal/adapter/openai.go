@@ -24,7 +24,7 @@ func OpenAI(apiKey, model, content string, temperature, topP float32, stream boo
 		},
 	)
 	if err != nil {
-		log.Printf("ChatCompletion error: %v\n", err)
+		log.Printf("openai ChatCompletion error: %v\n", err)
 		return nil
 	}
 	return &resp

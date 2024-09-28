@@ -10,6 +10,7 @@ type input struct {
 	SplitPrefix string `form:"split_prefix" json:"split_prefix" binding:"required"`
 	Content     string `form:"content" json:"content" binding:"required"`
 	Restrict    uint64 `form:"restrict" json:"restrict" binding:"required"`
+	Model       string `form:"model" json:"model" binding:"required"`
 }
 
 // Split 处理文本内容拆分
@@ -27,6 +28,7 @@ func Split() gin.HandlerFunc {
 		// process content
 		contentList := process.Split(in.Content, in.SplitPrefix, in.Restrict)
 		ctx.Set("contentList", contentList)
+		ctx.Set("model", in.Model)
 
 		ctx.Next()
 	}

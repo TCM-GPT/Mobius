@@ -2,7 +2,7 @@ package route
 
 import (
 	"gen-SFT-Dataset/internal/controller"
-	"gen-SFT-Dataset/middleware"
+	"gen-SFT-Dataset/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,16 +1,16 @@
 app_config:
   name: gen-SFT-Dataset
-  version: 0.1.0
+  version: 0.0.2
   description: Generate SFT Dataset
   adapters:
     - type: openai
-      api_key: openai_api_key
+      api_key: apikey
       model: gpt-4o
       temperature: 1.0
       top_p: 0.8
     - type: qwen
-      api_key: qwen_api_key
-      model: qwen2-7b
+      api_key: apikey
+      model: qwen-turbo
       temperature: 1.0
       top_p: 0.8
   mysql:

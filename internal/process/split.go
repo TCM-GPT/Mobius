@@ -9,7 +9,9 @@ func Split(content string, splitPrefix string, restrict uint64) []string {
 	content = strings.TrimSpace(content)
 	segments := strings.Split(content, splitPrefix)
 
-	// 截断算法
+	/*
+		截断算法
+	*/
 	var results []string
 	var buffer string
 
@@ -24,6 +26,7 @@ func Split(content string, splitPrefix string, restrict uint64) []string {
 			results = append(results, buffer)
 			buffer = segment
 		} else {
+			// 加上 splitPrefix 保持未截断部分语义完整
 			buffer += segment + splitPrefix
 		}
 	}
