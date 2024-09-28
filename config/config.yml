@@ -1,0 +1,20 @@
+app_config:
+  name: gen-SFT-Dataset
+  version: 0.1.0
+  description: Generate SFT Dataset
+  adapters:
+    - type: openai
+      api_key: openai_api_key
+      model: gpt-4o
+      temperature: 1.0
+      top_p: 0.8
+    - type: qwen
+      api_key: qwen_api_key
+      model: qwen2-7b
+      temperature: 1.0
+      top_p: 0.8
+  mysql:
+    user: root
+    password: 121511
+    host: 127.0.0.1:3306
+    db_name: gen_sft_dataset
