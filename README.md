@@ -1,5 +1,5 @@
 ### Mobius
-![img.png](img.png)
+![banner.png](resource/banner.png)
 
 由gin+mysql开发的数据集生成api服务。
 
@@ -20,10 +20,10 @@
 
 #### 效果
 以postman 为例，请求例子如下：
-![img_1.png](img_1.png)
+![postman.png](resource/postman.png)
 
 数据库中演示数据效果：
-![img_2.png](img_2.png)
+![mysql.png](resource/mysql.png)
 
 ### 后续功能开发计划
 - 支持更多厂商
@@ -33,4 +33,4 @@
 - 加入用户系统
 - 嵌入 LLama-Factory 训练工具
 
-> 非专业开发人员，代码有点乱，欢迎指正，项目开源仅供交流学习使用，如果你觉得项目不错，可以给个star，感谢！
+> 非专业开发人员，代:码有点乱，欢迎指正，项目开源仅供交流学习使用，如果你觉得项目不错，可以给个star，感谢！

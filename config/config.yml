@@ -4,12 +4,12 @@ app_config:
   description: Generate SFT Dataset
   adapters:
     - type: openai
-      api_key: apikey
+      api_key: api_key
       model: gpt-4o
       temperature: 1.0
       top_p: 0.8
-    - type: qwen
-      api_key: apikey
+    - type: model_scope
+      api_key: api_key
       model: qwen-turbo
       temperature: 1.0
       top_p: 0.8
