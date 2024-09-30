@@ -11,6 +11,7 @@ type K struct {
 	Output      string `json:"output"`
 }
 
+// Convert a content to JSON type and insert in to database.
 func Convert(generateContext string) error {
 
 	jsonArray, err := ExtractJSONArray(generateContext)

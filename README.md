@@ -12,11 +12,12 @@
 
 #### 用法
 1. 确保拥有 go、mysql 环境
-2. 拉取项目到本地 `git clone https://github.com/TCM-GPT/Mobius.git`
-3. 修改配置文件 `config/config.yaml` adapter、mysql 参数
-4. 运行后端 `go run main.go`
-5. 现在你可以使用任意客户端发起请求 `http://localhost:8080/api/v1/generate`
-6. 请求参数（必填）：split_prefix、content、restrict、model， 其中 restrict 未截取长度，类型为int
+2. 创建数据库 `create database mobius charset=utf8mb4;`
+3. 拉取项目到本地 `git clone https://github.com/TCM-GPT/Mobius.git`
+4. 修改配置文件 `config/config.yaml` adapter、mysql 参数
+5. 运行后端 `go run main.go`
+6. 现在你可以使用任意客户端发起请求 `http://localhost:8080/api/v1/generate`
+7. 请求参数（必填）：split_prefix、content、restrict、model， 其中 restrict 未截取长度，类型为int
 
 #### 效果
 以postman 为例，请求例子如下：

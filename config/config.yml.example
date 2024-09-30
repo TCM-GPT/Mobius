@@ -1,5 +1,5 @@
 app_config:
-  name: gen-SFT-Dataset
+  name: mobius
   version: 0.0.2
   description: Generate SFT Dataset
   adapters:
@@ -13,8 +13,13 @@ app_config:
       model: qwen-turbo
       temperature: 1.0
       top_p: 0.8
+    - type: volc_engine // 火山引擎
+      api_key: api_key
+      host: maas-api.ml-platform-cn-beijing.volces.com
+      region: cn-beijing
+
   mysql:
-    user: root
-    password: 121511
-    host: 127.0.0.1:3306
-    db_name: gen_sft_dataset
+    user: mysql_user
+    password: mysql_password
+    host: host:port
+    db_name: mobius

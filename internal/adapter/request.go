@@ -30,7 +30,7 @@ var prompt = `
 `
 
 // NewRequest 根据 model 的厂商发起一个 post 请求
-func NewRequest(content string, model string) (resp any) {
+func NewRequest(content string, model string) (resp any, err error) {
 	var defaultModel string
 
 	if len(model) > 0 {
@@ -54,8 +54,24 @@ func NewRequest(content string, model string) (resp any) {
 				prompt+content,
 			)
 			break
+		case func(model string) string {
+			splitString := model[0:3]
+			if splitString == "ep-" {
+				return model
+			} else {
+				return ""
+			}
+		}(model):
+			// 发起火山引擎接口请求
+			resp, err = Volcengine(prompt + content)
+			if err != nil {
+				log.Println("Volcengine request error:", err)
+				return nil, err
+			}
+			return resp, nil
+			break
 		default:
-			log.Println("不支持的模型:", defaultModel)
+			log.Println("不支持的模型:", model)
 			break
 		}
 	} else {
@@ -69,12 +85,10 @@ func NewRequest(content string, model string) (resp any) {
 				config.GetInstance().AppConfig.Adapters[0].TopP,
 				false,
 			)
-			return resp
-		} else {
-			return nil
+			return resp, nil
 		}
 	}
-	return resp
+	return resp, nil
 }
 
 func Contains(slice []string, value string) string {

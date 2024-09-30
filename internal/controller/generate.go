@@ -7,6 +7,7 @@ import (
 	"github.com/devinyf/dashscopego"
 	"github.com/gin-gonic/gin"
 	"github.com/sashabaranov/go-openai"
+	m "github.com/volcengine/volcengine-go-sdk/service/arkruntime/model"
 	"log"
 )
 
@@ -25,10 +26,13 @@ func Generate(ctx *gin.Context) {
 	}
 
 	for _, content := range contentList.([]string) {
-		resp := adapter.NewRequest(content, model.(string))
-		if resp == nil {
+		resp, err := adapter.NewRequest(content, model.(string))
+		if resp == nil || err != nil {
 			log.Println("got no response while request LLM api")
-			ctx.JSON(400, gin.H{"error": "got no response while request LLM api"})
+			ctx.JSON(400, gin.H{
+				"error": "got no response while request LLM api",
+				"info":  err,
+			})
 			return
 		}
 
@@ -42,9 +46,23 @@ func Generate(ctx *gin.Context) {
 		case adapter.Contains(adapter.MODEL_SCOPE_MODELS, model.(string)):
 			choices := resp.(*dashscopego.TextQwenResponse).GetChoices()
 			generateContext = fmt.Sprintf("%s", choices[0].Message.Content)
+			break
+		case func(model string) string {
+			splitString := model[0:3]
+			if splitString == "ep-" {
+				return model
+			} else {
+				return ""
+			}
+		}(model.(string)):
+			// 执行火山引擎的接口
+			a := resp.(*m.ChatCompletionResponse).Choices[0].Message.Content.StringValue // 返回值 StringValue 类型 *string...
+			fmt.Println(*a)
+			generateContext = fmt.Sprintf("%s", *resp.(*m.ChatCompletionResponse).Choices[0].Message.Content.StringValue)
 		}
 
-		err := process.Convert(generateContext)
+		// 转换并写入到数据库中
+		err = process.Convert(generateContext)
 		if err != nil {
 			ctx.AbortWithStatusJSON(400, gin.H{"error": err.Error})
 			return

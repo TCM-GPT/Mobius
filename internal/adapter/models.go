@@ -1,5 +1,11 @@
 package adapter
 
+const (
+	OPENAI = iota
+	MODEL_SCOPE
+	VOLCENGINE
+)
+
 // 偷个懒扒过来
 const (
 	O1Mini                = "o1-mini"
