@@ -4,6 +4,7 @@ import (
 	"gen-SFT-Dataset/config"
 	"gen-SFT-Dataset/internal/route"
 	"gen-SFT-Dataset/mysql"
+	"gen-SFT-Dataset/postgresql"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,7 +20,14 @@ func NewServer() *server {
 
 func (s *server) initAll() {
 	config.InitConfigFile()
-	mysql.InitMysqlSetup()
+	switch config.GetInstance().AppConfig.UseDb {
+	case "mysql":
+		mysql.InitMysqlSetup()
+	case "postgresql":
+		postgresql.InitPostgresSetup()
+	default:
+		postgresql.InitPostgresSetup()
+	}
 	s.InitGin()
 }
 

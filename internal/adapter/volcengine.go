@@ -10,12 +10,12 @@ import (
 )
 
 // Volcengine TODO waiting to finish this function.
-func Volcengine(content string) (*model.ChatCompletionResponse, error) {
+func Volcengine(content, models string) (*model.ChatCompletionResponse, error) {
 	cli := arkruntime.NewClientWithApiKey(config.GetInstance().AppConfig.Adapters[VOLCENGINE].ApiKey)
 
 	ctx := context.Background()
 	req := model.ChatCompletionRequest{
-		Model: config.GetInstance().AppConfig.Adapters[VOLCENGINE].Model,
+		Model: models,
 		Messages: []*model.ChatCompletionMessage{
 			{
 				Role: model.ChatMessageRoleSystem,

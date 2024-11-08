@@ -11,19 +11,19 @@ var prompt = `
 2. 每个QA对包含一个问题和一个简洁的答案。
 3. 答案必须用简体中文。
 4. 生成的QA对不能重复。
-5. 使用json格式将QA对包裹起来，问题用"instruction"表示，"input" (可选) 是对instruction的补充，提供了完整的上下文和指导，用于生成输出。答案用"output"表示。
+5. 使用json格式将QA对包裹起来，问题用"instruction"表示，"inputVal" (可选) 是对instruction的补充，提供了完整的上下文和指导，用于生成输出。答案用"outputVal"表示。
 
 示例格式：
 [
 	{
 		"instruction": "...",
-		"input": "...",
-		"output": "..."
+		"inputVal": "...",
+		"outputVal": "..."
 	},
 	{
 		"instruction": "...",
-		"input": "...",
-		"output": "..."
+		"inputVal": "...",
+		"outputVal": "..."
 	}
 ]
 以下是给定的文本内容：
@@ -63,7 +63,7 @@ func NewRequest(content string, model string) (resp any, err error) {
 			}
 		}(model):
 			// 发起火山引擎接口请求
-			resp, err = Volcengine(prompt + content)
+			resp, err = Volcengine(prompt+content, model)
 			if err != nil {
 				log.Println("Volcengine request error:", err)
 				return nil, err

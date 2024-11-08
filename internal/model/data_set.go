@@ -1,12 +1,15 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Dataset struct {
-	*gorm.Model
-	Instruction string `json:"instruction"`
-	Input       string `json:"input"`
-	Output      string `json:"output"`
+	gorm.Model
+	Instruction string
+	InputVal    string
+	OutputVal   string
+	LlmSource   string
 }
 
 func (d *Dataset) TableName() string {
