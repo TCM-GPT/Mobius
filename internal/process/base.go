@@ -9,8 +9,9 @@ import (
 // JSONData 定义一个通用的 map 结构来存储 JSON 对象
 type JSONData struct {
 	Instruction string `json:"instruction"`
-	Input       string `json:"input"`
-	Output      string `json:"output"`
+	InputVal    string `json:"inputVal"`
+	OutputVal   string `json:"outputVal"`
+	LlmSource   string `json:"llmSource"`
 }
 
 func ExtractJSONArray(text string) ([]JSONData, error) {

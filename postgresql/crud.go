@@ -1,4 +1,4 @@
-package mysql
+package postgresql
 
 import (
 	"gen-SFT-Dataset/internal/model"

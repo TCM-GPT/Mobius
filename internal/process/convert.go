@@ -1,18 +1,21 @@
 package process
 
 import (
+	"gen-SFT-Dataset/config"
 	"gen-SFT-Dataset/internal/model"
 	"gen-SFT-Dataset/mysql"
+	"gen-SFT-Dataset/postgresql"
 )
 
 type K struct {
 	Instruction string `json:"instruction"`
-	Input       string `json:"input"`
-	Output      string `json:"output"`
+	InputVal    string `json:"inputVal"`
+	OutputVal   string `json:"outputVal"`
+	LlmSource   string `json:"llmSource"`
 }
 
 // Convert a content to JSON type and insert in to database.
-func Convert(generateContext string) error {
+func Convert(generateContext, models string) error {
 
 	jsonArray, err := ExtractJSONArray(generateContext)
 	if err != nil {
@@ -22,13 +25,30 @@ func Convert(generateContext string) error {
 	for _, object := range jsonArray {
 		data := model.Dataset{
 			Instruction: object.Instruction,
-			Input:       object.Input,
-			Output:      object.Output,
+			InputVal:    object.InputVal,
+			OutputVal:   object.OutputVal,
+			LlmSource:   models,
 		}
-		err = mysql.Transaction(data.Instruction, data.Input, data.Output)
-		if err != nil {
-			return err
+		switch config.GetInstance().AppConfig.UseDb {
+		case "mysql":
+			err = mysql.Transaction(data.Instruction, data.InputVal, data.OutputVal, data.LlmSource)
+			if err != nil {
+				return err
+			}
+			break
+		case "postgresql":
+			err = postgresql.Transaction(data.Instruction, data.InputVal, data.OutputVal, data.LlmSource)
+			if err != nil {
+				return err
+			}
+			break
+		default:
+			err = postgresql.Transaction(data.Instruction, data.InputVal, data.OutputVal, data.LlmSource)
+			if err != nil {
+				return err
+			}
 		}
+
 	}
 	return nil
 }

@@ -17,9 +17,15 @@ app_config:
       api_key: api_key
       host: maas-api.ml-platform-cn-beijing.volces.com
       region: cn-beijing
-
+  useDb: postgresql // 数据库选择
   mysql:
     user: mysql_user
     password: mysql_password
     host: host:port
     db_name: mobius
+  postgresql:
+    user: postgresql_user
+    password: postgresql_password
+    host: postgresql_host
+    db_name: postgresql_database
+    db_port: postgresql_port

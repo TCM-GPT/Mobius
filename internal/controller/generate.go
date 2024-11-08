@@ -62,7 +62,7 @@ func Generate(ctx *gin.Context) {
 		}
 
 		// 转换并写入到数据库中
-		err = process.Convert(generateContext)
+		err = process.Convert(generateContext, model.(string))
 		if err != nil {
 			ctx.AbortWithStatusJSON(400, gin.H{"error": err.Error})
 			return
